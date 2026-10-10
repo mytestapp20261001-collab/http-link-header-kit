@@ -1,0 +1,6 @@
+{
+  "base_url": "https://api.example/v1/items",
+  "link_headers": [
+    "<?page=2>; rel=\"next\"; title=\"Page two, continued\", </schema>; rel=\"describedby\"; type=\"application/json\""
+  ]
+}

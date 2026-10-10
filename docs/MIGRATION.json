@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "slug": "http-link-header-kit",
+  "domain": "protocol",
+  "guidance_group": "light",
+  "source_commit": "1286096c10a23bbb04aca83679ae3c31f3326030",
+  "source_repository": "mytestapp20261001-collab/mytest-engineering-toolbox",
+  "source_repository_id": 1411411288,
+  "source_path": "tools/http-link-header-kit",
+  "root_path": ".",
+  "publication_status": "prepared_only; coordinator verifies final repository identity and remote CI",
+  "expected_repository": "mytestapp20261001-collab/http-link-header-kit",
+  "repository_id": null,
+  "preserved_files": [
+    {
+      "path": "README.md",
+      "size_bytes": 3723,
+      "sha256": "a19acde8ee567817b0b04ab4ac2b9c2617eb5b1005bfa6b340cc14d3fa3ae7b5",
+      "git_blob_sha1": "1b43d95a9119dc7876348f59e0eac2c6def4b066",
+      "utf8": true,
+      "source_path": "tools/http-link-header-kit/README.md"
+    },
+    {
+      "path": "SKILL.md",
+      "size_bytes": 837,
+      "sha256": "c12ba8c6d40fd2ec251563899335fc0ec436140a57d768941b124e59e8cec7c0",
+      "git_blob_sha1": "6410241b4d56285fe571a337a8e3e19c5c4f5a41",
+      "utf8": true,
+      "source_path": "tools/http-link-header-kit/SKILL.md"
+    },
+    {
+      "path": "examples/bad.json",
+      "size_bytes": 118,
+      "sha256": "8afa36ee8f355415472ca5ca9b2f88080cc06b66073f3033204a8757f1a9ff41",
+      "git_blob_sha1": "95aee644f78c5609327fb9bca774dd4995190613",
+      "utf8": true,
+      "source_path": "tools/http-link-header-kit/examples/bad.json"
+    },
+    {
+      "path": "examples/good.json",
+      "size_bytes": 194,
+      "sha256": "85d041a6763f2d92563a00134862c226eb0cc6d83c47b0be48ef3e6a8934b59f",
+      "git_blob_sha1": "7c84361c5ddeeb9c5d195805e5bbe1ff2c30435e",
+      "utf8": true,
+      "source_path": "tools/http-link-header-kit/examples/good.json"
+    },
+    {
+      "path": "test_tool.py",
+      "size_bytes": 6980,
+      "sha256": "5b3b48cde624a00e3065e58a6c4e13c589308766c41c0f9a2cca97ba144cf406",
+      "git_blob_sha1": "107170efa7d5f574ec5b673bccecdb0657ffd23f",
+      "utf8": true,
+      "source_path": "tools/http-link-header-kit/test_tool.py"
+    },
+    {
+      "path": "tool.py",
+      "size_bytes": 14507,
+      "sha256": "34f7d18f19f9d3db3a70e12d4ee0cfbf08103bb7b8aaacfd1b4772d401dcd043",
+      "git_blob_sha1": "63d0da7ba84e256a2bc31a68ccec9252176c7146",
+      "utf8": true,
+      "source_path": "tools/http-link-header-kit/tool.py"
+    },
+    {
+      "path": "LICENSE",
+      "size_bytes": 1076,
+      "sha256": "dce76471613629e93f3f98b7aaa6f72ff9adb88204a3f83d3045952017ab2f46",
+      "git_blob_sha1": "677c4463d59b560db9c1fde1052eff6eefa6441a",
+      "utf8": true,
+      "source_path": "LICENSE"
+    },
+    {
+      "path": ".gitignore",
+      "size_bytes": 62,
+      "sha256": "e4d5aecc4cd36f593c2e7f3dad08b24261b13466b898004a445614058d29d8de",
+      "git_blob_sha1": "fe9f8fb619601213cbfef4f6eadb5d413d8f7f01",
+      "utf8": true,
+      "source_path": ".gitignore"
+    }
+  ],
+  "readme_checks": [
+    {
+      "label": "README example",
+      "args": [
+        "tool.py",
+        "--input",
+        "examples/good.json",
+        "--pretty"
+      ],
+      "expected_exit": 0,
+      "output": "json",
+      "documented_command": "python3 tool.py --input examples/good.json --pretty"
+    },
+    {
+      "label": "README example",
+      "args": [
+        "tool.py",
+        "--input",
+        "examples/bad.json",
+        "--pretty"
+      ],
+      "expected_exit": 1,
+      "output": "json",
+      "documented_command": "python3 tool.py --input examples/bad.json --pretty  # expected exit 1: duplicate rel"
+    },
+    {
+      "label": "CLI help",
+      "args": [
+        "tool.py",
+        "--help"
+      ],
+      "expected_exit": 0,
+      "output": "help"
+    },
+    {
+      "label": "CLI missing input",
+      "args": [
+        "tool.py"
+      ],
+      "expected_exit": 2,
+      "output": "json"
+    },
+    {
+      "label": "CLI unknown argument",
+      "args": [
+        "tool.py",
+        "--unsupported-migration-test"
+      ],
+      "expected_exit": 2,
+      "output": "json"
+    }
+  ]
+}
