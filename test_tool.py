@@ -126,3 +126,45 @@ class LinkTests(unittest.TestCase):
         for reference in ['http:relative','https:/path','https://a..b/','https://-x.example/','https://[::1]tail/','https://127.1/','https://xn--/']:
             with self.assertRaises(tool.InputError): tool.uri_metadata(reference,'https://api.example/')
 if __name__=='__main__': unittest.main()
+
+class RelativePathColonTests(unittest.TestCase):
+    def test_invalid_first_segment_targets_and_anchors(self):
+        for ref in ('1:a', ':a', '_a:b', '-a:b', 'a%20:b', '1:a/b', '1:a?x', '1:a#x'):
+            for anchor in (False, True):
+                with self.subTest(ref=ref, anchor=anchor):
+                    header = ('</next>; rel=next; anchor="' + ref + '"' if anchor
+                              else '<' + ref + '>; rel=next')
+                    with self.assertRaises(tool.InputError):
+                        tool.audit({'base_url': 'https://example.com/base/', 'link_headers': [header]})
+
+    def test_valid_colons_keep_resolved_identity(self):
+        for ref, resolved in (
+            ('./a:b', 'https://example.com/base/a:b'),
+            ('../a:b', 'https://example.com/a:b'),
+            ('/a:b', 'https://example.com/a:b'),
+            ('a/b:c', 'https://example.com/base/a/b:c'),
+            ('1%3Aa', 'https://example.com/base/1%3Aa'),
+            ('?x:y', 'https://example.com/base/?x:y'),
+            ('#x:y', 'https://example.com/base/#x:y'),
+            ('https://other.example/a:b', 'https://other.example/a:b'),
+            ('//other.example/a:b', 'https://other.example/a:b'),
+        ):
+            for anchor in (False, True):
+                with self.subTest(ref=ref, anchor=anchor):
+                    header = ('</next>; rel=next; anchor="' + ref + '"' if anchor
+                              else '<' + ref + '>; rel=next')
+                    out = tool.audit({'base_url': 'https://example.com/base/', 'link_headers': [header]})
+                    self.assertTrue(out['ok'])
+                    item = out['links'][0]['context' if anchor else 'target']
+                    self.assertEqual(item['uri_sha256'], hashlib.sha256(resolved.encode()).hexdigest())
+
+    def test_cli_rejects_invalid_reference_without_echo(self):
+        marker = '1:PRIVATE_REFERENCE_MARKER'
+        for header in ('<' + marker + '>; rel=next', '</next>; rel=next; anchor="' + marker + '"'):
+            proc = subprocess.run([sys.executable, str(ROOT / 'tool.py')],
+                                  input=json.dumps({'base_url': 'https://example.com/', 'link_headers': [header]}),
+                                  capture_output=True, text=True)
+            self.assertEqual(proc.returncode, 2)
+            self.assertEqual(proc.stderr, '')
+            self.assertNotIn(marker, proc.stdout)
+            self.assertEqual(json.loads(proc.stdout)['error']['code'], 'invalid_input')
