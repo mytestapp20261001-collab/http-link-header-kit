@@ -16,7 +16,7 @@
     {
       "path": "test_tool.py",
       "original_sha256": "5b3b48cde624a00e3065e58a6c4e13c589308766c41c0f9a2cca97ba144cf406",
-      "current_sha256": "3208a26a7a3f84a9d0fbeecd8d7dfcc69d58f0ebcd1734d8b3c9f88cf8cb1a59",
+      "current_sha256": "395bf02baeb7bcfae67a4682c4b5831f1d8e52f1967cb4ff0d5136c21678354f",
       "reason": "Reject invalid literal colon in first path-noscheme segment; preserve valid colon targets/anchors and CLI redaction."
     }
   ]

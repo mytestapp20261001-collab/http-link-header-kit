@@ -125,7 +125,6 @@ class LinkTests(unittest.TestCase):
     def test_invalid_authority_forms(self):
         for reference in ['http:relative','https:/path','https://a..b/','https://-x.example/','https://[::1]tail/','https://127.1/','https://xn--/']:
             with self.assertRaises(tool.InputError): tool.uri_metadata(reference,'https://api.example/')
-if __name__=='__main__': unittest.main()
 
 class RelativePathColonTests(unittest.TestCase):
     def test_invalid_first_segment_targets_and_anchors(self):
@@ -168,3 +167,6 @@ class RelativePathColonTests(unittest.TestCase):
             self.assertEqual(proc.stderr, '')
             self.assertNotIn(marker, proc.stdout)
             self.assertEqual(json.loads(proc.stdout)['error']['code'], 'invalid_input')
+
+if __name__ == '__main__':
+    unittest.main()
