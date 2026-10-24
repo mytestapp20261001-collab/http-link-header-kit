@@ -130,6 +130,11 @@ def uri_metadata(reference, base):
         ), 'unsupported URI-reference characters')
         require(not re.search(r'%(?![0-9A-Fa-f]{2})', value), 'malformed URI percent escape')
         parts = urlsplit(value)
+        # RFC 3986 sections 3.3 and 4.2: path-noscheme starts with a
+        # segment without a literal colon. urllib.parse is only a splitter.
+        if not parts.scheme and not parts.netloc and not parts.path.startswith('/'):
+            require(':' not in parts.path.split('/', 1)[0],
+                    'colon in first relative-path segment')
         return parts, '?' in value.split('#', 1)[0], '#' in value
 
     def dot_segments(path):

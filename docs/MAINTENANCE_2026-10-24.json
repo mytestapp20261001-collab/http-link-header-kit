@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "repository": "mytestapp20261001-collab/http-link-header-kit",
+  "repository_id": 1413198715,
+  "base_commit": "7fbb8e133193df67cb033aa269b381a9180ee9fe",
+  "date": "2026-10-24",
+  "scope": "Minimal URI-reference validation correction. Historical MIGRATION.json, README, SKILL, examples, CI and experiment group unchanged.",
+  "reference": "https://www.rfc-editor.org/rfc/rfc3986.html#section-4.2",
+  "changes": [
+    {
+      "path": "tool.py",
+      "original_sha256": "34f7d18f19f9d3db3a70e12d4ee0cfbf08103bb7b8aaacfd1b4772d401dcd043",
+      "current_sha256": "862e29cdd034c7e113b6cee78b178e761e1fd841d7b7e3d7b63e2a959f13feb2",
+      "reason": "Reject invalid literal colon in first path-noscheme segment; preserve valid colon targets/anchors and CLI redaction."
+    },
+    {
+      "path": "test_tool.py",
+      "original_sha256": "5b3b48cde624a00e3065e58a6c4e13c589308766c41c0f9a2cca97ba144cf406",
+      "current_sha256": "395bf02baeb7bcfae67a4682c4b5831f1d8e52f1967cb4ff0d5136c21678354f",
+      "reason": "Reject invalid literal colon in first path-noscheme segment; preserve valid colon targets/anchors and CLI redaction."
+    }
+  ]
+}
